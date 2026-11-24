@@ -243,6 +243,31 @@
       border-color: #128BFF !important;
     }
 
+    /* Modern Mobile Bottom-Sheet University Picker */
+    #mob-uni-sheet {
+      transition: opacity 0.26s ease, visibility 0.26s ease;
+    }
+    #mob-uni-sheet.sheet-closed {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #mob-uni-sheet.sheet-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    #mob-uni-sheet-panel {
+      transition: transform 0.34s var(--ease-modern);
+      will-change: transform;
+    }
+    #mob-uni-sheet.sheet-closed #mob-uni-sheet-panel {
+      transform: translate3d(0, 100%, 0);
+    }
+    #mob-uni-sheet.sheet-open #mob-uni-sheet-panel {
+      transform: translate3d(0, 0, 0);
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .marquee-left, .marquee-right { animation: none; }
       .coverflow-card { transition: opacity 0.2s ease; }
@@ -1003,6 +1028,44 @@
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
     </span>
     <p id="toast-msg" class="text-xs sm:text-sm font-semibold truncate"></p>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- MODERN MOBILE BOTTOM-SHEET UNIVERSITY PICKER                            -->
+  <!-- ======================================================================= -->
+  <div id="mob-uni-sheet" class="sheet-closed lg:hidden fixed inset-0 z-[130] flex items-end justify-center bg-cobalt-950/65 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="mob-sheet-title">
+    <div id="mob-uni-sheet-panel" class="w-full max-w-lg bg-white rounded-t-[28px] shadow-2xl flex flex-col max-h-[84vh] overflow-hidden border-t border-white/60">
+      <!-- Drag Handle -->
+      <div class="pt-3 pb-1 flex justify-center shrink-0">
+        <span class="w-11 h-1.5 rounded-full bg-slate-200"></span>
+      </div>
+
+      <!-- Sticky Header + Live Search -->
+      <div class="px-5 pt-2 pb-4 border-b border-coolborder bg-white shrink-0 space-y-3">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <h3 id="mob-sheet-title" class="font-bn font-bold text-lg text-cobalt-950">বিশ্ববিদ্যালয় নির্বাচন করুন</h3>
+            <span id="mob-sheet-count" class="px-2.5 py-0.5 rounded-full bg-azure-50 text-azure-600 font-display text-xs font-bold">৩১টি</span>
+          </div>
+          <button type="button" onclick="closeMobileUniSheet()" aria-label="Close University Picker" class="w-9 h-9 rounded-full bg-ice hover:bg-azure-50 border border-coolborder text-cobalt-900 flex items-center justify-center transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="relative">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input
+            id="mob-sheet-search"
+            type="text"
+            placeholder="নাম বা শহর লিখে খুঁজুন (যেমন: Taylor's, APU, KL)..."
+            class="w-full rounded-2xl border border-coolborder bg-ice/80 pl-10 pr-4 py-2.5 text-sm text-ink focus:bg-white focus:border-azure-500 focus:outline-none transition-colors"
+          />
+        </div>
+      </div>
+
+      <!-- Scrollable Modern University Cards -->
+      <div id="mob-sheet-list" class="dir-scroll flex-1 overflow-y-auto p-3 space-y-2 bg-ice/40 pb-6"></div>
+    </div>
   </div>
 
   <!-- ======================================================================= -->
@@ -1947,13 +2010,34 @@
       if (!mount) return;
 
       mount.innerHTML = `
-        <!-- Mobile Dropdown + Quick-Tap Pills -->
+        <!-- Modern Mobile Custom Picker Trigger + Quick-Tap Pills -->
         <div class="lg:hidden mb-5 bg-white rounded-3xl border border-coolborder shadow-cool-sm p-4 space-y-3">
           <div class="flex items-center justify-between">
-            <label for="mob-uni-dropdown" class="font-bn font-bold text-sm text-cobalt-950">বিশ্ববিদ্যালয় নির্বাচন করুন (৩১টি)</label>
-            <span id="mob-uni-count" class="px-2 py-0.5 rounded-full bg-azure-50 text-azure-600 font-display text-[11px] font-bold">৩১টি</span>
+            <span class="font-bn font-bold text-sm text-cobalt-950">বিশ্ববিদ্যালয় নির্বাচন করুন</span>
+            <span id="mob-uni-count" class="px-2.5 py-0.5 rounded-full bg-azure-50 text-azure-600 font-display text-[11px] font-bold">৩১টি</span>
           </div>
-          <select id="mob-uni-dropdown" class="w-full rounded-2xl border border-coolborder bg-ice px-3.5 py-3 text-sm font-display font-bold text-cobalt-950 focus:bg-white focus:border-azure-500 focus:outline-none"></select>
+
+          <button
+            id="mob-uni-trigger"
+            type="button"
+            onclick="openMobileUniSheet()"
+            class="w-full text-left p-3 rounded-2xl bg-ice hover:bg-azure-50/70 border border-coolborder hover:border-azure-400 flex items-center justify-between gap-3 transition-all active:scale-[0.99]"
+          >
+            <div class="flex items-center gap-3 min-w-0">
+              <span id="mob-uni-trigger-short" class="w-10 h-10 rounded-xl bg-gradient-to-br from-azure-500 to-cobalt-900 text-white font-display font-extrabold text-xs flex items-center justify-center shrink-0 shadow-sm">
+                UM
+              </span>
+              <div class="min-w-0">
+                <p id="mob-uni-trigger-name" class="font-display font-bold text-sm text-cobalt-950 truncate">University of Malaya (UM)</p>
+                <p id="mob-uni-trigger-meta" class="font-sans text-[11px] font-medium text-slatecopy truncate">Kuala Lumpur &middot; QS Top 60</p>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white border border-coolborder text-azure-600 font-bn font-bold text-[11px] shrink-0 shadow-sm">
+              <span>বদলান</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </span>
+          </button>
+
           <div id="mob-quick-pills" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5"></div>
         </div>
 
@@ -1987,10 +2071,11 @@
         </div>
       `;
 
-      // Bind Global Header Search + Desktop Sidebar Search
+      // Bind Global Header Search + Desktop Sidebar Search + Mobile Bottom Sheet Search
       const globalSearch = document.getElementById('dir-global-search');
       const sidebarSearch = document.getElementById('desk-sidebar-search');
-      const mobDropdown = document.getElementById('mob-uni-dropdown');
+      const sheetSearch = document.getElementById('mob-sheet-search');
+      const sheetOverlay = document.getElementById('mob-uni-sheet');
 
       const handleSearch = (val) => {
         dirGlobalQuery = val;
@@ -2002,10 +2087,12 @@
 
       if (globalSearch) globalSearch.addEventListener('input', (e) => handleSearch(e.target.value));
       if (sidebarSearch) sidebarSearch.addEventListener('input', (e) => handleSearch(e.target.value));
-      if (mobDropdown) {
-        mobDropdown.addEventListener('change', (e) => {
-          inlineCourseQuery = '';
-          renderUniversityDossier(e.target.value);
+      if (sheetSearch) {
+        sheetSearch.addEventListener('input', (e) => renderMobileSheetList(e.target.value));
+      }
+      if (sheetOverlay) {
+        sheetOverlay.addEventListener('click', (e) => {
+          if (e.target.id === 'mob-uni-sheet') closeMobileUniSheet();
         });
       }
 
@@ -2013,6 +2100,82 @@
       renderMobileControls(dirGlobalQuery);
       renderUniversityDossier(selectedUniId);
     }
+
+    function openMobileUniSheet() {
+      const sheet = document.getElementById('mob-uni-sheet');
+      const searchInput = document.getElementById('mob-sheet-search');
+      if (!sheet) return;
+      if (searchInput) searchInput.value = '';
+      renderMobileSheetList('');
+      sheet.classList.remove('sheet-closed');
+      sheet.classList.add('sheet-open');
+      document.body.style.overflow = 'hidden';
+    }
+    window.openMobileUniSheet = openMobileUniSheet;
+
+    function closeMobileUniSheet() {
+      const sheet = document.getElementById('mob-uni-sheet');
+      if (!sheet) return;
+      sheet.classList.remove('sheet-open');
+      sheet.classList.add('sheet-closed');
+      document.body.style.overflow = '';
+    }
+    window.closeMobileUniSheet = closeMobileUniSheet;
+
+    function renderMobileSheetList(query = '') {
+      const listEl = document.getElementById('mob-sheet-list');
+      const countEl = document.getElementById('mob-sheet-count');
+      if (!listEl) return;
+
+      const filtered = getFilteredUniversities(query);
+      if (countEl) countEl.textContent = `${filtered.length}টি`;
+
+      listEl.innerHTML = filtered.length ? filtered.map(u => {
+        const isActive = u.id === selectedUniId;
+        return `
+          <button
+            type="button"
+            onclick="selectUniversityFromSheet('${u.id}')"
+            class="w-full text-left p-3.5 rounded-2xl border flex items-center justify-between gap-3 transition-all active:scale-[0.99] ${
+              isActive
+                ? 'bg-azure-50 border-azure-500 shadow-cool-sm'
+                : 'bg-white border-coolborder hover:border-azure-300'
+            }"
+          >
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="w-10 h-10 rounded-xl font-display font-extrabold text-xs flex items-center justify-center shrink-0 ${
+                isActive
+                  ? 'bg-gradient-to-br from-azure-500 to-cobalt-900 text-white shadow-sm'
+                  : 'bg-ice border border-coolborder text-cobalt-900'
+              }">
+                ${u.short}
+              </span>
+              <div class="min-w-0">
+                <p class="font-display font-bold text-sm leading-snug truncate ${isActive ? 'text-azure-600' : 'text-cobalt-950'}">${u.name}</p>
+                <div class="flex items-center gap-1.5 mt-0.5 text-[11px] text-slatecopy">
+                  <span class="truncate">${u.city}</span>
+                  <span>&middot;</span>
+                  <span class="font-semibold text-emeraldbrand-600 truncate">${u.rank}</span>
+                </div>
+              </div>
+            </div>
+            <span class="w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${
+              isActive
+                ? 'bg-azure-500 text-white'
+                : 'border-2 border-slate-200'
+            }">
+              ${isActive ? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : ''}
+            </span>
+          </button>
+        `;
+      }).join('') : `<div class="py-10 text-center text-sm text-slatecopy">কোনো বিশ্ববিদ্যালয় পাওয়া যায়নি।</div>`;
+    }
+
+    function selectUniversityFromSheet(uid) {
+      closeMobileUniSheet();
+      selectUniversity(uid);
+    }
+    window.selectUniversityFromSheet = selectUniversityFromSheet;
 
     function getFilteredUniversities(query = '') {
       const q = query.trim().toLowerCase();
@@ -2047,17 +2210,10 @@
     }
 
     function renderMobileControls(query = '') {
-      const dropdown = document.getElementById('mob-uni-dropdown');
       const pillsWrap = document.getElementById('mob-quick-pills');
       const countEl = document.getElementById('mob-uni-count');
-      if (!dropdown) return;
-
       const filtered = getFilteredUniversities(query);
       if (countEl) countEl.textContent = `${filtered.length}টি`;
-
-      dropdown.innerHTML = filtered.length
-        ? filtered.map(u => `<option value="${u.id}" ${u.id === selectedUniId ? 'selected' : ''}>${u.name}</option>`).join('')
-        : `<option value="">কোনো বিশ্ববিদ্যালয় পাওয়া যায়নি</option>`;
 
       if (pillsWrap) {
         pillsWrap.innerHTML = filtered.slice(0, 10).map(u => `
@@ -2095,12 +2251,16 @@
       const panel = document.getElementById('uni-dossier-panel');
       if (!panel) return;
 
-      // Sync active highlight in sidebar & mobile dropdown
+      // Sync active highlight in sidebar & custom mobile trigger card
       document.querySelectorAll('.uni-sidebar-item').forEach(btn => {
         btn.classList.toggle('is-active', btn.dataset.uid === uni.id);
       });
-      const mobDropdown = document.getElementById('mob-uni-dropdown');
-      if (mobDropdown && mobDropdown.value !== uni.id) mobDropdown.value = uni.id;
+      const trigShort = document.getElementById('mob-uni-trigger-short');
+      const trigName = document.getElementById('mob-uni-trigger-name');
+      const trigMeta = document.getElementById('mob-uni-trigger-meta');
+      if (trigShort) trigShort.textContent = uni.short;
+      if (trigName) trigName.textContent = uni.name;
+      if (trigMeta) trigMeta.textContent = `${uni.city} · ${uni.rank}`;
 
       const levels = ['Foundation', 'Diploma', 'Bachelor', 'Masters', 'PhD'];
       const q = inlineCourseQuery.trim().toLowerCase();
