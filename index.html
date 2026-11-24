@@ -219,6 +219,22 @@
       animation: emeraldStampSlam 0.6s cubic-bezier(0.22, 1.28, 0.36, 1) 0.16s forwards;
     }
 
+    /* Auto-playing Mini Photo/Video Reel inside Visa Card */
+    .visa-reel-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.08);
+      transition: opacity 0.65s ease, transform 2.6s ease-out;
+    }
+    .visa-reel-slide.is-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
     /* Toast Notification */
     #toast-bar {
       transition: transform 0.28s var(--ease-modern), opacity 0.25s ease;
@@ -1127,7 +1143,13 @@
           intake: 'Approved · 2025',
           badge: '14-Day EMGS · Fast Track',
           quote: '“ডকুমেন্টেশন থেকে শুরু করে EMGS ভিসা পর্যন্ত প্রতিটি ধাপে EduMigration পাশে ছিল।”',
-          videoEmbedUrl: ''
+          videoEmbedUrl: '',
+          previewVideoUrl: '', // সরাসরি .mp4 লিংক দিলে এখানেই অটো প্লে হবে
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=360&q=75'
+          ]
         },
         {
           name: 'Anoy Chowdhury',
@@ -1138,7 +1160,13 @@
           intake: 'Approved · 2026',
           badge: '12-Day EMGS · 25% Scholarship',
           quote: '“মাত্র ১২ দিনে অফার লেটার ও খুব দ্রুত মালয়েশিয়া স্টুডেন্ট ভিসা পেয়েছি।”',
-          videoEmbedUrl: ''
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=360&q=75'
+          ]
         },
         {
           name: 'Tahsan Ahmed',
@@ -1149,7 +1177,13 @@
           intake: 'Approved · 2026',
           badge: '30% Merit Scholarship',
           quote: '“স্কলারশিপ অ্যাপ্লিকেশন এবং এয়ারপোর্ট পিকআপ সবকিছুই ছিল ঝামেলামুক্ত।”',
-          videoEmbedUrl: ''
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=360&q=75'
+          ]
         },
         {
           name: 'MD Sifat Rahman',
@@ -1160,7 +1194,13 @@
           intake: 'Approved · 2026',
           badge: 'Zero Hidden Fees · Verified',
           quote: '“স্বচ্ছ ফি স্ট্রাকচার ও আন্তরিক কাউন্সেলিংয়ের জন্য EduMigration সেরা।”',
-          videoEmbedUrl: ''
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=360&q=75'
+          ]
         },
         {
           name: 'Sumaiya Akter',
@@ -1171,7 +1211,13 @@
           intake: 'Approved · 2026',
           badge: 'Direct Admission · 2026',
           quote: '“সঠিক গাইডলাইনে কোনো ভোগান্তি ছাড়াই আমার ভর্তি ও ভিসা সম্পন্ন হয়েছে।”',
-          videoEmbedUrl: ''
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=360&q=75'
+          ]
         },
         {
           name: 'Farhan Tanvir',
@@ -1182,7 +1228,13 @@
           intake: 'Approved · 2026',
           badge: '40% Merit Bursary',
           quote: '“বগুড়া অফিসে বসেই Taylor’s-এর অফার লেটার ও স্কলারশিপ নিশ্চিত করতে পেরেছি।”',
-          videoEmbedUrl: ''
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=360&q=75'
+          ]
         },
         {
           name: 'Nusrat Jahan Mim',
@@ -1193,7 +1245,13 @@
           intake: 'Approved · 2026',
           badge: 'QS Top 40 Campus',
           quote: '“কোনো লুকানো খরচ ছাড়াই প্রতিটি আপডেট সময়মতো পেয়েছি। অসংখ্য ধন্যবাদ EduMigration।”',
-          videoEmbedUrl: ''
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=360&q=75'
+          ]
         }
       ],
 
@@ -1816,6 +1874,80 @@
     // =========================================================================
     let cfIndex = 1;
     let cfTimer = null;
+    let cfReelTimer = null;
+
+    function buildVisaMediaBox(item, idx) {
+      const fallbackImg = 'https://placehold.co/260x150/0B3A75/FFFFFF?text=Visa+Moment';
+      if (item.previewVideoUrl) {
+        return `
+          <div
+            onclick="event.stopPropagation(); openVideoModal('visa', ${idx});"
+            title="ভিডিও দেখুন"
+            class="relative w-[108px] sm:w-[126px] h-[66px] sm:h-[74px] shrink-0 rounded-xl overflow-hidden bg-cobalt-950 border border-coolborder shadow-sm group cursor-pointer"
+          >
+            <video
+              class="w-full h-full object-cover"
+              src="${item.previewVideoUrl}"
+              autoplay
+              loop
+              muted
+              playsinline
+            ></video>
+            <span class="absolute bottom-1.5 right-1.5 w-5 h-5 rounded-full bg-cobalt-950/75 text-white flex items-center justify-center backdrop-blur-sm">
+              <svg class="w-2.5 h-2.5 text-emeraldbrand-500 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </div>
+        `;
+      }
+
+      const slides = (item.mediaSlides && item.mediaSlides.length)
+        ? item.mediaSlides
+        : [fallbackImg];
+
+      return `
+        <div
+          data-visa-reel="${idx}"
+          onclick="event.stopPropagation(); openVideoModal('visa', ${idx});"
+          title="ভিসা ফটো ও ভিডিও দেখুন"
+          class="relative w-[108px] sm:w-[126px] h-[66px] sm:h-[74px] shrink-0 rounded-xl overflow-hidden bg-cobalt-950 border border-coolborder shadow-sm group cursor-pointer"
+        >
+          ${slides.map((src, sIdx) => `
+            <img
+              src="${src}"
+              alt="${item.name} — ${item.university}"
+              loading="lazy"
+              onerror="this.onerror=null;this.src='${fallbackImg}';"
+              class="visa-reel-slide ${sIdx === 0 ? 'is-active' : ''}"
+            />
+          `).join('')}
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-cobalt-950/55 via-transparent to-transparent"></div>
+          <span class="pointer-events-none absolute top-1.5 left-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-cobalt-950/70 backdrop-blur-sm text-[9px] font-display font-bold text-white tracking-wide">
+            <span class="w-1.5 h-1.5 rounded-full bg-emeraldbrand-500 animate-pulse"></span>
+            AUTO
+          </span>
+          <span class="pointer-events-none absolute bottom-1.5 right-1.5 w-5 h-5 rounded-full bg-white/90 text-cobalt-950 flex items-center justify-center shadow-sm">
+            <svg class="w-2.5 h-2.5 text-azure-600 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+      `;
+    }
+
+    function startVisaMediaReels() {
+      if (cfReelTimer) clearInterval(cfReelTimer);
+      cfReelTimer = setInterval(() => {
+        if (currentView !== 'home') return;
+        document.querySelectorAll('[data-visa-reel]').forEach((reel) => {
+          const imgs = reel.querySelectorAll('.visa-reel-slide');
+          if (imgs.length <= 1) return;
+          let activeIdx = 0;
+          imgs.forEach((img, i) => {
+            if (img.classList.contains('is-active')) activeIdx = i;
+          });
+          imgs[activeIdx].classList.remove('is-active');
+          imgs[(activeIdx + 1) % imgs.length].classList.add('is-active');
+        });
+      }, 2400);
+    }
 
     function initVisaCoverflow() {
       const stage = document.getElementById('coverflow-stage');
@@ -1830,18 +1962,22 @@
         <article
           data-cf-idx="${idx}"
           onclick="setCoverflowIndex(${idx})"
-          class="coverflow-card cursor-pointer rounded-3xl bg-white border border-coolborder overflow-hidden text-ink shadow-cool-lg select-none"
+          class="coverflow-card cursor-pointer rounded-3xl bg-white border border-coolborder text-ink shadow-cool-lg select-none"
         >
-          <!-- Top Crisp Visual Banner -->
-          <div class="relative bg-gradient-to-r from-cobalt-900 via-cobalt-800 to-azure-600 px-5 py-4 text-white">
-            <!-- Animated Emerald VISA APPROVED Stamp -->
-            <div class="visa-stamp-badge absolute top-3.5 right-3.5 z-10">
-              <div class="px-2.5 py-1 rounded-lg border-2 border-emeraldbrand-500 bg-cobalt-950/90 text-emeraldbrand-500 font-display font-extrabold text-[10px] tracking-widest uppercase shadow-sm">
-                VISA APPROVED
-              </div>
-            </div>
+          <!-- Animated Circular Emerald VISA APPROVED · EDUMIGRATION Stamp -->
+          <div class="visa-stamp-badge absolute -top-3 right-3 z-20 drop-shadow-md">
+            <svg class="w-[78px] h-[78px] sm:w-[86px] sm:h-[86px]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="VISA APPROVED EduMigration">
+              <circle cx="50" cy="50" r="46" fill="#ECFDF5" fill-opacity="0.96" stroke="#10B981" stroke-width="3" stroke-dasharray="4.5 3.5"/>
+              <circle cx="50" cy="50" r="38.5" fill="none" stroke="#10B981" stroke-width="1.2" stroke-opacity="0.5"/>
+              <text x="50" y="38" text-anchor="middle" fill="#059669" font-family="Outfit, sans-serif" font-weight="800" font-size="11.5" letter-spacing="1.4">VISA</text>
+              <text x="50" y="53" text-anchor="middle" fill="#059669" font-family="Outfit, sans-serif" font-weight="800" font-size="11.5" letter-spacing="0.8">APPROVED</text>
+              <text x="50" y="67" text-anchor="middle" fill="#128BFF" font-family="Outfit, sans-serif" font-weight="800" font-size="7.4" letter-spacing="0.9">EDUMIGRATION</text>
+            </svg>
+          </div>
 
-            <div class="flex items-center gap-3.5 pr-24">
+          <!-- Top Crisp Visual Banner -->
+          <div class="relative rounded-t-3xl bg-gradient-to-r from-cobalt-900 via-cobalt-800 to-azure-600 px-5 py-4 text-white overflow-hidden">
+            <div class="flex items-center gap-3.5 pr-20">
               <div class="w-12 h-12 rounded-2xl bg-white/15 border border-white/30 flex items-center justify-center font-display font-extrabold text-white text-base shrink-0">
                 ${item.initials}
               </div>
@@ -1853,10 +1989,14 @@
           </div>
 
           <!-- Solid White Card Body (100% Opaque, High Contrast) -->
-          <div class="p-5 sm:p-6 bg-white">
-            <div class="p-3.5 rounded-2xl bg-ice border border-coolborder space-y-0.5">
-              <p class="font-display font-extrabold text-sm text-cobalt-950 truncate">${item.university}</p>
-              <p class="font-sans text-xs font-medium text-azure-600 truncate">${item.program}</p>
+          <div class="p-5 sm:p-6 bg-white rounded-b-3xl">
+            <div class="p-3 rounded-2xl bg-ice border border-coolborder flex items-center justify-between gap-3">
+              <div class="min-w-0 flex-1 space-y-0.5">
+                <p class="font-display font-extrabold text-sm text-cobalt-950 leading-snug line-clamp-2">${item.university}</p>
+                <p class="font-sans text-xs font-medium text-azure-600 truncate">${item.program}</p>
+              </div>
+              <!-- Auto-Playing Photo / Video Preview Reel -->
+              ${buildVisaMediaBox(item, idx)}
             </div>
 
             <p class="mt-4 text-xs sm:text-sm text-slate-600 leading-relaxed min-h-[44px]">
@@ -1913,6 +2053,7 @@
 
       renderCoverflowPositions();
       startCoverflowAuto();
+      startVisaMediaReels();
     }
 
     function setCoverflowIndex(nextIdx) {
