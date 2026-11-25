@@ -337,6 +337,9 @@
           <button type="button" data-nav="success" onclick="navigateTo('home', 'success')" class="nav-pill px-3.5 py-2 rounded-full text-sm font-semibold text-slatecopy hover:text-azure-600 transition-colors">
             ভিসা সাফল্য
           </button>
+          <button type="button" data-nav="ielts-success" onclick="navigateTo('home', 'ielts-success')" class="nav-pill px-3.5 py-2 rounded-full text-sm font-semibold text-slatecopy hover:text-azure-600 transition-colors">
+            IELTS সাফল্য
+          </button>
           <button type="button" data-nav="universities" onclick="navigateTo('universities')" class="nav-pill inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-semibold text-slatecopy hover:text-azure-600 transition-colors">
             <span>ইউনিভার্সিটি</span>
             <span class="px-1.5 py-0.5 rounded-full bg-azure-500/15 text-azure-600 font-display text-[11px] font-bold leading-none">৩১</span>
@@ -375,6 +378,7 @@
     <div id="mobile-menu-drawer" class="hidden lg:hidden mx-0 md:mx-auto max-w-6xl mt-0 md:mt-2 bg-white md:rounded-2xl border-b md:border border-coolborder shadow-cool-lg px-4 py-3 space-y-1">
       <button type="button" onclick="mobileNav('home')" class="w-full text-left px-3.5 py-3 rounded-xl text-sm font-semibold text-cobalt-900 hover:bg-azure-50">হোম</button>
       <button type="button" onclick="mobileNav('home', 'success')" class="w-full text-left px-3.5 py-3 rounded-xl text-sm font-semibold text-slatecopy hover:bg-azure-50">ভিসা সাফল্য</button>
+      <button type="button" onclick="mobileNav('home', 'ielts-success')" class="w-full text-left px-3.5 py-3 rounded-xl text-sm font-semibold text-slatecopy hover:bg-azure-50">IELTS সাফল্য</button>
       <button type="button" onclick="mobileNav('universities')" class="w-full text-left px-3.5 py-3 rounded-xl text-sm font-semibold text-slatecopy hover:bg-azure-50 flex items-center justify-between">
         <span>ইউনিভার্সিটি ও কোর্স</span>
         <span class="px-2 py-0.5 rounded-full bg-azure-500 text-white font-display text-xs font-bold">৩১</span>
@@ -583,6 +587,45 @@
 
         <!-- Clickable Indicator Dots -->
         <div id="cf-dots" class="flex items-center justify-center gap-2 mt-5" aria-label="Visa Carousel Indicators">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3B: 3D COVERFLOW IELTS SUCCESS CAROUSEL (SAME ANIMATION ENGINE) -->
+    <section id="ielts-success" class="py-12 sm:py-16 bg-gradient-to-b from-ice via-azure-50/40 to-white border-b border-coolborder overflow-hidden">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <!-- Header & Controls -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-azure-50 border border-azure-200 text-azure-600 font-display text-[11px] font-bold uppercase tracking-wider">
+              <span class="w-1.5 h-1.5 rounded-full bg-azure-500"></span>
+              Verified IELTS Band Scores
+            </span>
+            <h2 class="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-cobalt-950 mt-2">
+              আমাদের শিক্ষার্থীদের <span class="text-tealbrand">IELTS সাফল্য</span>
+            </h2>
+            <p class="text-slatecopy text-xs sm:text-sm mt-1">বগুড়ায় আমাদের গাইডলাইন ও মক টেস্টের মাধ্যমে শিক্ষার্থীদের সেরা IELTS ব্যান্ড স্কোর।</p>
+          </div>
+
+          <div class="flex items-center gap-2.5 self-start sm:self-auto shrink-0">
+            <span class="hidden sm:inline text-xs font-medium text-slatecopy mr-1">সোয়াইপ বা ক্লিক করুন</span>
+            <button id="ielts-prev" type="button" aria-label="Previous IELTS Card" class="w-11 h-11 rounded-full bg-white hover:bg-azure-500 border border-coolborder hover:border-azure-500 text-cobalt-900 hover:text-white flex items-center justify-center shadow-sm transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button id="ielts-next" type="button" aria-label="Next IELTS Card" class="w-11 h-11 rounded-full bg-white hover:bg-azure-500 border border-coolborder hover:border-azure-500 text-cobalt-900 hover:text-white flex items-center justify-center shadow-sm transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3D Coverflow Stage for IELTS Band Score Cards -->
+        <div id="ielts-coverflow-stage" class="coverflow-stage relative h-[370px] sm:h-[385px] w-full">
+          <!-- Populated dynamically with student IELTS cards -->
+        </div>
+
+        <!-- Clickable Indicator Dots -->
+        <div id="ielts-dots" class="flex items-center justify-center gap-2 mt-5" aria-label="IELTS Carousel Indicators">
           <!-- Populated dynamically -->
         </div>
       </div>
@@ -1251,6 +1294,106 @@
             'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=360&q=75',
             'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=360&q=75',
             'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=360&q=75'
+          ]
+        }
+      ],
+
+      // Verified Student IELTS Success Stories (3D Coverflow)
+      ieltsSuccessList: [
+        {
+          name: 'Mahmudul Hasan Rafi',
+          initials: 'MR',
+          testType: 'IELTS Academic · 2026',
+          overallBand: '8.0',
+          breakdown: 'L 8.5 · R 8.5 · W 7.0 · S 7.5',
+          badge: '1st Attempt · Bogura Batch',
+          quote: '“নিয়মিত স্পিকিং সেশন ও রাইটিং ফিডব্যাকের কারণেই প্রথম চেষ্টাতেই Band 8.0 পেয়েছি।”',
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=360&q=75'
+          ]
+        },
+        {
+          name: 'Tasnim Tabassum Oishi',
+          initials: 'TO',
+          testType: 'IELTS Academic · 2026',
+          overallBand: '7.5',
+          breakdown: 'L 8.0 · R 7.5 · W 7.0 · S 7.5',
+          badge: '2-Month Intensive Course',
+          quote: '“বগুড়ায় বসেই আন্তর্জাতিক মানের মক টেস্ট আর পার্সোনাল কেয়ার পেয়েছি EduMigration-এ।”',
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=360&q=75'
+          ]
+        },
+        {
+          name: 'Sabbir Hossain',
+          initials: 'SH',
+          testType: 'IELTS Academic · 2026',
+          overallBand: '7.5',
+          breakdown: 'L 8.0 · R 7.5 · W 6.5 · S 7.5',
+          badge: 'Speaking 7.5 · Fast Track',
+          quote: '“আগে ইংরেজিতে কথা বলতে জড়তা ছিল, কিন্তু ১-টু-১ স্পিকিং প্র্যাকটিসে দারুণ আত্মবিশ্বাস এসেছে।”',
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=360&q=75'
+          ]
+        },
+        {
+          name: 'Faria Afrin Nipa',
+          initials: 'FN',
+          testType: 'UKVI IELTS · 2026',
+          overallBand: '7.0',
+          breakdown: 'L 7.5 · R 7.0 · W 6.5 · S 7.0',
+          badge: 'UKVI Verified · 6 Weeks',
+          quote: '“রাইটিং টাস্ক ১ ও ২-এর সহজ স্ট্র্যাটেজি শিখে মাত্র ৬ সপ্তাহে কাঙ্ক্ষিত Band 7.0 অর্জন করেছি।”',
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=360&q=75'
+          ]
+        },
+        {
+          name: 'Nafis Iqbal',
+          initials: 'NI',
+          testType: 'IELTS Academic · 2025',
+          overallBand: '8.0',
+          breakdown: 'L 8.5 · R 8.0 · W 7.5 · S 8.0',
+          badge: 'Top Scorer · Merit Award',
+          quote: '“রিডিং টাইম ম্যানেজমেন্ট আর লিসেনিং টিপসগুলো পরীক্ষার হলে অসাধারণ কাজে লেগেছে।”',
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=360&q=75'
+          ]
+        },
+        {
+          name: 'Jannatul Ferdous',
+          initials: 'JF',
+          testType: 'IELTS Academic · 2026',
+          overallBand: '7.0',
+          breakdown: 'L 7.5 · R 7.0 · W 6.5 · S 7.0',
+          badge: 'Full Mock Test Series',
+          quote: '“আসল পরীক্ষার আগেই ১০টি ফুল মক টেস্ট দেওয়ায় পরীক্ষার দিন কোনো নার্ভাসনেস ছিল না।”',
+          videoEmbedUrl: '',
+          previewVideoUrl: '',
+          mediaSlides: [
+            'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=360&q=75',
+            'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=360&q=75'
           ]
         }
       ],
@@ -2130,6 +2273,247 @@
     }
 
     // =========================================================================
+    // 4B. ANIMATED 3D COVERFLOW IELTS SUCCESS CAROUSEL (SAME ANIMATION ENGINE)
+    // =========================================================================
+    let ieltsCfIndex = 1;
+    let ieltsCfTimer = null;
+
+    function buildIeltsMediaBox(item, idx) {
+      const fallbackImg = 'https://placehold.co/260x150/0B3A75/FFFFFF?text=IELTS+Success';
+      if (item.previewVideoUrl) {
+        return `
+          <div
+            onclick="event.stopPropagation(); openVideoModal('ielts', ${idx});"
+            title="ভিডিও দেখুন"
+            class="relative w-[108px] sm:w-[126px] h-[66px] sm:h-[74px] shrink-0 rounded-xl overflow-hidden bg-cobalt-950 border border-coolborder shadow-sm group cursor-pointer"
+          >
+            <video
+              class="w-full h-full object-cover"
+              src="${item.previewVideoUrl}"
+              autoplay
+              loop
+              muted
+              playsinline
+            ></video>
+            <span class="absolute bottom-1.5 right-1.5 w-5 h-5 rounded-full bg-cobalt-950/75 text-white flex items-center justify-center backdrop-blur-sm">
+              <svg class="w-2.5 h-2.5 text-azure-400 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </div>
+        `;
+      }
+
+      const slides = (item.mediaSlides && item.mediaSlides.length)
+        ? item.mediaSlides
+        : [fallbackImg];
+
+      return `
+        <div
+          data-visa-reel="ielts-${idx}"
+          onclick="event.stopPropagation(); openVideoModal('ielts', ${idx});"
+          title="IELTS ফটো ও ভিডিও দেখুন"
+          class="relative w-[108px] sm:w-[126px] h-[66px] sm:h-[74px] shrink-0 rounded-xl overflow-hidden bg-cobalt-950 border border-coolborder shadow-sm group cursor-pointer"
+        >
+          ${slides.map((src, sIdx) => `
+            <img
+              src="${src}"
+              alt="${item.name} — IELTS Band ${item.overallBand}"
+              loading="lazy"
+              onerror="this.onerror=null;this.src='${fallbackImg}';"
+              class="visa-reel-slide ${sIdx === 0 ? 'is-active' : ''}"
+            />
+          `).join('')}
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-cobalt-950/55 via-transparent to-transparent"></div>
+          <span class="pointer-events-none absolute top-1.5 left-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-cobalt-950/70 backdrop-blur-sm text-[9px] font-display font-bold text-white tracking-wide">
+            <span class="w-1.5 h-1.5 rounded-full bg-azure-400 animate-pulse"></span>
+            AUTO
+          </span>
+          <span class="pointer-events-none absolute bottom-1.5 right-1.5 w-5 h-5 rounded-full bg-white/90 text-cobalt-950 flex items-center justify-center shadow-sm">
+            <svg class="w-2.5 h-2.5 text-azure-600 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+      `;
+    }
+
+    function initIeltsCoverflow() {
+      const stage = document.getElementById('ielts-coverflow-stage');
+      const dotsWrap = document.getElementById('ielts-dots');
+      const prevBtn = document.getElementById('ielts-prev');
+      const nextBtn = document.getElementById('ielts-next');
+      if (!stage || !dotsWrap) return;
+
+      const list = EDU_DATA.ieltsSuccessList;
+
+      stage.innerHTML = list.map((item, idx) => `
+        <article
+          data-ielts-idx="${idx}"
+          onclick="setIeltsCoverflowIndex(${idx})"
+          class="coverflow-card cursor-pointer rounded-3xl bg-white border border-coolborder text-ink shadow-cool-lg select-none"
+        >
+          <!-- Animated Circular IELTS BAND · EDUMIGRATION Stamp -->
+          <div class="visa-stamp-badge absolute -top-3 right-3 z-20 drop-shadow-md">
+            <svg class="w-[78px] h-[78px] sm:w-[86px] sm:h-[86px]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="IELTS Band ${item.overallBand} EduMigration">
+              <circle cx="50" cy="50" r="46" fill="#EEF6FF" fill-opacity="0.97" stroke="#128BFF" stroke-width="3" stroke-dasharray="4.5 3.5"/>
+              <circle cx="50" cy="50" r="38.5" fill="none" stroke="#0EA5A4" stroke-width="1.2" stroke-opacity="0.55"/>
+              <text x="50" y="34" text-anchor="middle" fill="#0B3A75" font-family="Outfit, sans-serif" font-weight="800" font-size="10.5" letter-spacing="1.4">IELTS</text>
+              <text x="50" y="53" text-anchor="middle" fill="#059669" font-family="Outfit, sans-serif" font-weight="800" font-size="16" letter-spacing="0.4">${item.overallBand}</text>
+              <text x="50" y="68" text-anchor="middle" fill="#128BFF" font-family="Outfit, sans-serif" font-weight="800" font-size="7.2" letter-spacing="0.9">EDUMIGRATION</text>
+            </svg>
+          </div>
+
+          <!-- Top Crisp Visual Banner -->
+          <div class="relative rounded-t-3xl bg-gradient-to-r from-cobalt-950 via-cobalt-800 to-tealbrand px-5 py-4 text-white overflow-hidden">
+            <div class="flex items-center gap-3.5 pr-20">
+              <div class="w-12 h-12 rounded-2xl bg-white/15 border border-white/30 flex items-center justify-center font-display font-extrabold text-white text-base shrink-0">
+                ${item.initials}
+              </div>
+              <div class="min-w-0">
+                <h3 class="font-display font-bold text-base sm:text-lg text-white truncate">${item.name}</h3>
+                <p class="font-sans text-xs text-azure-100 truncate">${item.testType}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Solid White Card Body (100% Opaque, High Contrast) -->
+          <div class="p-5 sm:p-6 bg-white rounded-b-3xl">
+            <div class="p-3 rounded-2xl bg-ice border border-coolborder flex items-center justify-between gap-3">
+              <div class="min-w-0 flex-1 space-y-0.5">
+                <p class="font-display font-extrabold text-sm text-cobalt-950 leading-snug">Overall Band ${item.overallBand}</p>
+                <p class="font-sans text-xs font-semibold text-azure-600 truncate">${item.breakdown}</p>
+              </div>
+              <!-- Auto-Playing Photo / Video Preview Reel -->
+              ${buildIeltsMediaBox(item, idx)}
+            </div>
+
+            <p class="mt-4 text-xs sm:text-sm text-slate-600 leading-relaxed min-h-[44px]">
+              ${item.quote}
+            </p>
+
+            <div class="mt-4 pt-3.5 border-t border-coolborder flex items-center justify-between gap-2">
+              <span class="px-2.5 py-1 rounded-full bg-azure-50 border border-azure-200 text-azure-700 font-display text-[11px] font-bold truncate">
+                ${item.badge}
+              </span>
+              <button
+                type="button"
+                onclick="event.stopPropagation(); openVideoModal('ielts', ${idx});"
+                class="px-3 py-1.5 rounded-xl bg-cobalt-950 hover:bg-azure-600 text-white font-bn text-xs font-bold inline-flex items-center gap-1.5 shrink-0 transition-colors"
+              >
+                <svg class="w-3.5 h-3.5 text-azure-400" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <span>IELTS স্টোরি</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      dotsWrap.innerHTML = list.map((_, idx) => `
+        <button
+          type="button"
+          data-ielts-dot="${idx}"
+          onclick="setIeltsCoverflowIndex(${idx})"
+          aria-label="IELTS Card ${idx + 1}"
+          class="h-2 rounded-full transition-all duration-300 bg-slate-300 w-2"
+        ></button>
+      `).join('');
+
+      if (prevBtn) prevBtn.addEventListener('click', () => setIeltsCoverflowIndex(ieltsCfIndex - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => setIeltsCoverflowIndex(ieltsCfIndex + 1));
+
+      // Touch swipe support for mobile
+      let touchStartX = 0;
+      stage.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+        stopIeltsCoverflowAuto();
+      }, { passive: true });
+      stage.addEventListener('touchend', (e) => {
+        const diff = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(diff) > 38) {
+          setIeltsCoverflowIndex(diff < 0 ? ieltsCfIndex + 1 : ieltsCfIndex - 1);
+        }
+        startIeltsCoverflowAuto();
+      }, { passive: true });
+
+      // Pause on desktop hover
+      stage.addEventListener('mouseenter', stopIeltsCoverflowAuto);
+      stage.addEventListener('mouseleave', startIeltsCoverflowAuto);
+
+      renderIeltsCoverflowPositions();
+      startIeltsCoverflowAuto();
+    }
+
+    function setIeltsCoverflowIndex(nextIdx) {
+      const total = EDU_DATA.ieltsSuccessList.length;
+      ieltsCfIndex = ((nextIdx % total) + total) % total;
+      renderIeltsCoverflowPositions();
+    }
+
+    function renderIeltsCoverflowPositions() {
+      const cards = document.querySelectorAll('#ielts-coverflow-stage .coverflow-card');
+      const dots = document.querySelectorAll('#ielts-dots button');
+      const total = cards.length;
+      const isCompact = window.innerWidth < 640;
+
+      cards.forEach((card, idx) => {
+        let offset = idx - ieltsCfIndex;
+        if (offset > total / 2) offset -= total;
+        if (offset < -total / 2) offset += total;
+
+        const absOff = Math.abs(offset);
+        card.classList.toggle('is-center', offset === 0);
+
+        if (offset === 0) {
+          card.style.transform = 'translate3d(-50%, -50%, 0) scale(1) rotateY(0deg)';
+          card.style.opacity = '1';
+          card.style.zIndex = '30';
+          card.style.pointerEvents = 'auto';
+          card.style.borderColor = 'rgba(14, 165, 164, 0.45)';
+        } else if (absOff === 1) {
+          const xShift = offset * (isCompact ? 62 : 76);
+          const rot = offset * -18;
+          card.style.transform = `translate3d(calc(-50% + ${xShift}%), -50%, -90px) scale(0.86) rotateY(${rot}deg)`;
+          card.style.opacity = isCompact ? '0.45' : '0.78';
+          card.style.zIndex = '20';
+          card.style.pointerEvents = 'auto';
+          card.style.borderColor = '#E2E8F0';
+        } else if (absOff === 2 && !isCompact) {
+          const xShift = offset * 68;
+          const rot = offset * -24;
+          card.style.transform = `translate3d(calc(-50% + ${xShift}%), -50%, -180px) scale(0.72) rotateY(${rot}deg)`;
+          card.style.opacity = '0.35';
+          card.style.zIndex = '10';
+          card.style.pointerEvents = 'auto';
+          card.style.borderColor = '#E2E8F0';
+        } else {
+          card.style.transform = 'translate3d(-50%, -50%, -260px) scale(0.6)';
+          card.style.opacity = '0';
+          card.style.zIndex = '1';
+          card.style.pointerEvents = 'none';
+        }
+      });
+
+      dots.forEach((dot, idx) => {
+        if (idx === ieltsCfIndex) {
+          dot.className = 'h-2 rounded-full transition-all duration-300 bg-tealbrand w-7';
+        } else {
+          dot.className = 'h-2 rounded-full transition-all duration-300 bg-slate-300 hover:bg-tealbrand w-2';
+        }
+      });
+    }
+
+    function startIeltsCoverflowAuto() {
+      stopIeltsCoverflowAuto();
+      ieltsCfTimer = setInterval(() => {
+        if (currentView === 'home') setIeltsCoverflowIndex(ieltsCfIndex + 1);
+      }, 4800);
+    }
+
+    function stopIeltsCoverflowAuto() {
+      if (ieltsCfTimer) {
+        clearInterval(ieltsCfTimer);
+        ieltsCfTimer = null;
+      }
+    }
+
+    // =========================================================================
     // 5. VISA VIDEO MODAL (SMART 16:9 & 9:16 YOUTUBE SHORTS) & TOAST
     // =========================================================================
     function parseYouTubeUrl(url) {
@@ -2192,6 +2576,14 @@
           sub = `${v.program} · ${v.badge}`;
           embed = v.videoEmbedUrl || '';
           targetUni = v.university;
+        }
+      } else if (type === 'ielts') {
+        const item = EDU_DATA.ieltsSuccessList[ref];
+        if (item) {
+          title = `${item.name} — IELTS Band ${item.overallBand}`;
+          sub = `${item.breakdown} · ${item.badge}`;
+          embed = item.videoEmbedUrl || '';
+          targetUni = `IELTS Batch Inquiry (Target Band ${item.overallBand})`;
         }
       }
 
@@ -2842,12 +3234,14 @@
       // Responsive Coverflow recalculation on resize
       window.addEventListener('resize', () => {
         renderCoverflowPositions();
+        renderIeltsCoverflowPositions();
       });
 
       // Initialize Home modules
       renderMarquee();
       renderPopularUniversities();
       initVisaCoverflow();
+      initIeltsCoverflow();
       initAssessmentForm();
     });
   </script>
