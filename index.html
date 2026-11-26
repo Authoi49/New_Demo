@@ -64,13 +64,19 @@
   <script src="https://cdn.tailwindcss.com" onload="applyTailwindConfig()"></script>
 
   <style>
-    /* Base Typography & Smooth Rendering */
+    /* Base Typography, Mobile Viewport Lock & Smooth Rendering */
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: clip;
+    }
     body {
       font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif;
       background-color: #FFFFFF;
       color: #0F172A;
-      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      overscroll-behavior-x: none;
     }
 
     /* Subtle Hero Dot-Grid Pattern */
@@ -116,20 +122,30 @@
     .lang-toggle {
       display: inline-flex;
       align-items: center;
-      padding: 3px;
+      padding: 2px;
       border-radius: 9999px;
       background-color: #F4F7FC;
       border: 1px solid #E2E8F0;
+      flex-shrink: 0;
     }
     .lang-opt {
-      padding: 4px 9px;
+      padding: 3px 7px;
       border-radius: 9999px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       line-height: 1.15;
       color: #475569;
       transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
+    }
+    @media (min-width: 640px) {
+      .lang-toggle {
+        padding: 3px;
+      }
+      .lang-opt {
+        padding: 4px 9px;
+        font-size: 11px;
+      }
     }
     .lang-opt.is-active {
       background: linear-gradient(135deg, #128BFF 0%, #0B66E4 100%);
@@ -148,6 +164,8 @@
 
     /* Dual-Row Counter-Scrolling Marquee */
     .marquee-mask {
+      width: 100%;
+      max-width: 100%;
       overflow: hidden;
       mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
       -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
@@ -179,6 +197,9 @@
     /* 3D Coverflow Stage (Shared by Visa Success & IELTS Success) */
     .coverflow-stage {
       position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
       height: 360px;
       perspective: 1100px;
       touch-action: pan-y;
@@ -192,7 +213,8 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: min(92vw, 430px);
+      width: min(calc(100% - 12px), 430px);
+      max-width: 100%;
       transform-origin: center center;
       transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease, filter 0.45s ease;
       will-change: transform, opacity;
@@ -280,12 +302,12 @@
   <!-- ======================================================================= -->
   <!-- FLOATING GLASS PILL NAVBAR                                              -->
   <!-- ======================================================================= -->
-  <header class="sticky top-0 z-50 md:pt-3 px-0 md:px-4">
-    <div class="max-w-6xl mx-auto bg-white/90 backdrop-blur-xl md:rounded-full border-b md:border border-coolborder shadow-cool-sm px-4 sm:px-5 py-2.5">
-      <div class="flex items-center justify-between gap-2">
+  <header class="sticky top-0 z-50 w-full max-w-full overflow-x-clip md:pt-3 px-0 md:px-4">
+    <div class="max-w-6xl mx-auto bg-white/90 backdrop-blur-xl md:rounded-full border-b md:border border-coolborder shadow-cool-sm px-3 sm:px-5 py-2.5">
+      <div class="flex items-center justify-between gap-1.5 sm:gap-2 min-w-0">
         <!-- Brand Logo -->
-        <button type="button" onclick="navigateTo('home')" class="flex items-center gap-2.5 text-left group shrink-0">
-          <span class="w-10 h-10 rounded-xl bg-white border border-coolborder shadow-sm flex items-center justify-center p-1 group-hover:border-azure-400 transition-colors">
+        <button type="button" onclick="navigateTo('home')" class="flex items-center gap-2 sm:gap-2.5 text-left group min-w-0 shrink">
+          <span class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white border border-coolborder shadow-sm flex items-center justify-center p-1 group-hover:border-azure-400 transition-colors shrink-0">
             <!-- Official EduMigration Vector Logo -->
             <svg viewBox="0 0 100 100" class="w-full h-full" aria-hidden="true">
               <defs>
@@ -303,11 +325,11 @@
               </g>
             </svg>
           </span>
-          <span class="leading-tight">
-            <span class="block font-display font-extrabold text-lg sm:text-xl tracking-tight text-cobalt-950">
+          <span class="leading-tight min-w-0">
+            <span class="block font-display font-extrabold text-base sm:text-xl tracking-tight text-cobalt-950 truncate">
               Edu<span class="text-azure-500">Migration</span>
             </span>
-            <span class="block font-display text-[10px] font-bold tracking-widest uppercase text-slatecopy">
+            <span class="block font-display text-[9px] sm:text-[10px] font-bold tracking-wider sm:tracking-widest uppercase text-slatecopy truncate">
               Bogura &middot; Study Abroad
             </span>
           </span>
@@ -352,15 +374,15 @@
         </div>
 
         <!-- Mobile Language Switch + Quick CTA + Hamburger -->
-        <div class="flex md:hidden items-center gap-1.5">
+        <div class="flex md:hidden items-center gap-1 sm:gap-1.5 shrink-0">
           <div class="lang-toggle" role="group" aria-label="Mobile Language Switch">
             <button type="button" data-lang-btn="en" onclick="setLanguage('en')" class="lang-opt is-active font-display">EN</button>
             <button type="button" data-lang-btn="bn" onclick="setLanguage('bn')" class="lang-opt font-bn">বাং</button>
           </div>
-          <button type="button" onclick="navigateTo('home', 'apply')" class="btn-azure px-3 py-2 rounded-xl font-bn font-bold text-xs" data-i18n="cta_assess_short">
+          <button type="button" onclick="navigateTo('home', 'apply')" class="btn-azure px-2.5 py-1.5 rounded-xl font-bn font-bold text-[11px] whitespace-nowrap" data-i18n="cta_assess_short">
             Apply Free
           </button>
-          <button id="mobile-menu-btn" type="button" aria-label="Toggle Navigation" class="p-2 rounded-xl bg-ice border border-coolborder text-cobalt-900">
+          <button id="mobile-menu-btn" type="button" aria-label="Toggle Navigation" class="p-1.5 rounded-xl bg-ice border border-coolborder text-cobalt-900 shrink-0">
             <svg id="mob-open-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
             <svg id="mob-close-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
           </button>
@@ -392,7 +414,7 @@
   <!-- ======================================================================= -->
   <!-- PAGE 1: HOME VIEW (#home-view)                                          -->
   <!-- ======================================================================= -->
-  <main id="home-view">
+  <main id="home-view" class="w-full max-w-full overflow-x-clip">
 
     <!-- SECTION 1: AIRY, STUDENT-FRIENDLY SPLIT HERO -->
     <section class="relative hero-dot-bg bg-gradient-to-b from-white via-ice/60 to-white py-12 sm:py-16 lg:py-20 border-b border-coolborder overflow-hidden">
@@ -809,7 +831,7 @@
   <!-- ======================================================================= -->
   <!-- PAGE 2: 31-UNIVERSITY PARTNER DIRECTORY VIEW (#universities-view)       -->
   <!-- ======================================================================= -->
-  <section id="universities-view" class="hidden min-h-screen bg-ice py-8 sm:py-12">
+  <section id="universities-view" class="hidden min-h-screen w-full max-w-full overflow-x-clip bg-ice py-8 sm:py-12">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-6">
       <!-- Directory Header & Search -->
       <div class="bg-white rounded-3xl border border-coolborder shadow-cool-sm p-5 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -853,7 +875,7 @@
   <!-- ======================================================================= -->
   <!-- CLEAN MIDNIGHT SAPPHIRE FOOTER                                          -->
   <!-- ======================================================================= -->
-  <footer class="bg-cobalt-950 text-slate-300 pt-12 pb-24 md:pb-10 border-t border-white/10">
+  <footer class="w-full max-w-full overflow-x-clip bg-cobalt-950 text-slate-300 pt-12 pb-24 md:pb-10 border-t border-white/10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-white/10">
         <!-- Brand -->
